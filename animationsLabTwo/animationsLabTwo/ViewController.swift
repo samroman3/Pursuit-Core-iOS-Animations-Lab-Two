@@ -13,28 +13,28 @@ class ViewController: UIViewController {
 
     //MARK: View Outlets
     
-    lazy var viewOne: UIView = {
-        let view = UIView()
-        view.backgroundColor = .blue
+    lazy var viewOne: UIImageView = {
+        let view = UIImageView()
+        view.image = UIImage(named: "tennisBall")
         return view
     }()
     
-    lazy var viewTwo: UIView = {
-        let view = UIView()
-        view.backgroundColor = .blue
+    lazy var viewTwo: UIImageView = {
+        let view = UIImageView()
+        view.image = UIImage(named: "tennisBall")
         return view
     }()
     
     
-    lazy var viewThree: UIView = {
-        let view = UIView()
-        view.backgroundColor = .blue
+    lazy var viewThree: UIImageView = {
+        let view = UIImageView()
+        view.image = UIImage(named: "tennisBall")
         return view
     }()
     
-    lazy var viewFour: UIView = {
-        let view = UIView()
-        view.backgroundColor = .blue
+    lazy var viewFour: UIImageView = {
+        let view = UIImageView()
+        view.image = UIImage(named: "tennisBall")
         return view
     }()
     
