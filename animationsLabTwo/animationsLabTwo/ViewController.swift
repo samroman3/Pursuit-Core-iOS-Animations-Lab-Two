@@ -24,12 +24,14 @@ class ViewController: UIViewController {
     lazy var viewOne: UIImageView = {
         let view = UIImageView()
         view.image = UIImage(named: "tennisBall")
+        view.tag = 1
         return view
     }()
     
     lazy var viewTwo: UIImageView = {
         let view = UIImageView()
         view.image = UIImage(named: "tennisBall")
+        view.tag = 2
         return view
     }()
     
@@ -37,12 +39,14 @@ class ViewController: UIViewController {
     lazy var viewThree: UIImageView = {
         let view = UIImageView()
         view.image = UIImage(named: "tennisBall")
+        view.tag = 3
         return view
     }()
     
     lazy var viewFour: UIImageView = {
         let view = UIImageView()
         view.image = UIImage(named: "tennisBall")
+        view.tag = 4
         return view
     }()
     
@@ -51,7 +55,8 @@ class ViewController: UIViewController {
         let button = UIButton()
         button.setTitle("Linear", for: .normal)
         button.setTitleColor(.blue, for: .normal)
-        button.addTarget(self, action: #selector(linearAction(sender:)), for: .touchUpInside)
+        button.tag = 1
+        button.addTarget(self, action: #selector(disappearButton(sender:)), for: .touchUpInside)
         return button
     }()
     
@@ -59,6 +64,8 @@ class ViewController: UIViewController {
         let button = UIButton()
         button.setTitle("Ease In", for: .normal)
         button.setTitleColor(.blue, for: .normal)
+        button.tag = 2
+        button.addTarget(self, action: #selector(disappearButton(sender:)), for: .touchUpInside)
         return button
     }()
     
@@ -66,6 +73,8 @@ class ViewController: UIViewController {
         let button = UIButton()
         button.setTitle("Ease Out", for: .normal)
         button.setTitleColor(.blue, for: .normal)
+        button.tag = 3
+        button.addTarget(self, action: #selector(disappearButton(sender:)), for: .touchUpInside)
         return button
     }()
     
@@ -73,7 +82,8 @@ class ViewController: UIViewController {
         let button = UIButton()
         button.setTitle("In/Out", for: .normal)
         button.setTitleColor(.blue, for: .normal)
-        
+        button.tag = 4
+        button.addTarget(self, action: #selector(disappearButton(sender:)), for: .touchUpInside)
         return button
     }()
     
@@ -81,6 +91,7 @@ class ViewController: UIViewController {
         let button = UIButton()
         button.setTitle("Animate", for: .normal)
         button.setTitleColor(.blue, for: .normal)
+        button.addTarget(self, action: #selector(animatePressed(sender:)), for: .touchUpInside)
         return button
     }()
     
@@ -88,6 +99,7 @@ class ViewController: UIViewController {
         let button = UIButton()
         button.setTitle("Reset", for: .normal)
         button.setTitleColor(.blue, for: .normal)
+        button.addTarget(self, action: #selector(resetPressed(sender:)), for: .touchUpInside)
         return button
     }()
     
@@ -208,14 +220,63 @@ class ViewController: UIViewController {
     
     
     //MARK: View Methods
-    @objc func linearAction(sender: UIImageView){
+   func linearAction(){
         UIImageView.transition(with: viewOne, duration: 2.0, options: [.curveLinear], animations: {
             self.viewOneCenterYConstraint.constant = 300
             self.view.layoutIfNeeded()
         }, completion: nil)
     }
     
+    func easeInAction(){
+        UIImageView.transition(with: viewOne, duration: 2.0, options: [.curveEaseIn], animations: {
+            self.viewTwoCenterYConstraint.constant = 300
+            self.view.layoutIfNeeded()
+        }, completion: nil)
+    }
     
+    func easeOutAction(){
+        UIImageView.transition(with: viewOne, duration: 2.0, options: [.curveEaseOut], animations: {
+            self.viewThreeCenterYConstraint.constant = 300
+            self.view.layoutIfNeeded()
+        }, completion: nil)
+    }
+    
+    func easeInOutAction(){
+           UIImageView.transition(with: viewOne, duration: 2.0, options: [.curveEaseOut], animations: {
+               self.viewFourCenterYConstraint.constant = 300
+               self.view.layoutIfNeeded()
+           }, completion: nil)
+       }
+    
+    
+    //MARK: Button Methods
+    
+    
+    @objc func disappearButton(sender: UIButton) {
+      let arr = [viewOne, viewTwo, viewThree ,viewFour]
+          for i in arr{
+              if i.tag == sender.tag && !i.isHidden{
+                  i.isHidden = true
+              }else if i.tag == sender.tag && i.isHidden  {
+                  i.isHidden = false
+              }
+          }
+      }
+    
+    @objc func resetPressed(sender: UIButton){
+        self.viewOneCenterYConstraint.constant = -200
+        self.viewTwoCenterYConstraint.constant = -200
+        self.viewThreeCenterYConstraint.constant = -200
+        self.viewFourCenterYConstraint.constant = -200
+    }
+    
+    @objc func animatePressed(sender: UIButton){
+        linearAction()
+        easeInAction()
+        easeOutAction()
+        easeInOutAction()
+    }
+       
     
     
 
