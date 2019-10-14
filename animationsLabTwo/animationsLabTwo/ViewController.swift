@@ -11,7 +11,15 @@ import UIKit
 
 class ViewController: UIViewController {
 
+    
+    //MARK: Offset Defaults
+    var offsetYAnchor = -200
+    
+    
+    
     //MARK: View Outlets
+    
+    
     
     lazy var viewOne: UIImageView = {
         let view = UIImageView()
@@ -43,6 +51,7 @@ class ViewController: UIViewController {
         let button = UIButton()
         button.setTitle("Linear", for: .normal)
         button.setTitleColor(.blue, for: .normal)
+        button.addTarget(self, action: #selector(linearAction(sender:)), for: .touchUpInside)
         return button
     }()
     
@@ -199,7 +208,12 @@ class ViewController: UIViewController {
     
     
     //MARK: View Methods
-    
+    @objc func linearAction(sender: UIImageView){
+        UIImageView.transition(with: viewOne, duration: 2.0, options: [.curveLinear], animations: {
+            self.viewOneCenterYConstraint.constant = 300
+            self.view.layoutIfNeeded()
+        }, completion: nil)
+    }
     
     
     
